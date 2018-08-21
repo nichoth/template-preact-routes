@@ -14,7 +14,7 @@
     "start": "node-sass src/style/main.scss --source-map-embed > public/style.css && concurrently --kill-others \"npm run serve\" \"npm run sass-watch\"",
     "serve": "env $(cat .env | xargs) budo src/index.js:bundle.js --pushstate --dir=public --live -- -t babelify -g aliasify -t [ envify --NODE_ENV development ] -dv",
     "build": "npm run build-js && npm run build-css",
-    "build-js": "browserify -p bundle-collapser/plugin src/index.js -t [ envify --NODE_ENV production ] -t babelify -g aliasify -g unassertify -g uglifyify | uglifyjs -mc > public/bundle.js",
+    "build-js": "browserify -p bundle-collapser/plugin src/index.js -t babelify -t [ envify --NODE_ENV production ] -g aliasify -g unassertify | uglifyjs -mc > public/bundle.js",
     "build-css": "node-sass --output-style=compressed src/style/main.scss > public/style.css",
     "sass-watch": "node-sass --watch src/style/main.scss --source-map-embed public/style.css",
     "prepush": "./test/githook/prepush.sh",
@@ -27,7 +27,7 @@
   "dependencies": {
     "@nichoth/catch-routes": "^1.0.2",
     "@nichoth/events": "^1.0.0",
-    "@nichoth/observ": "^0.4.5",
+    "@nichoth/observ": "^0.5.0",
     "@nichoth/preact-connect": "^1.0.0",
     "preact": "^8.2.9",
     "preact-compat": "^3.18.0",
@@ -56,7 +56,6 @@
     "tape": "^4.9.0",
     "tape-run": "^4.0.0",
     "uglify-js": "^3.3.25",
-    "uglifyify": "^5.0.0",
     "unassertify": "^2.1.1"
   },
   "private": true
