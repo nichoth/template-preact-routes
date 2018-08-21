@@ -6,7 +6,6 @@ var Effects = require('./effects')
 var View = require('./view')
 var evs = require('./EVENTS')
 
-var bus = Bus({ memo: true })
 var state = struct({
     foo: observ('bar'),
     route: struct({}),
@@ -15,7 +14,10 @@ var state = struct({
     })
 })
 
+var bus = Bus({ memo: true })
 var effects = Effects({ state, view: bus })
+var _view = connect({ state, bus, view: View })
+render(h(_view), document.getElementById('content'))
 
 if (process.env.NODE_ENV === 'development') {
     window.app = {
@@ -25,7 +27,4 @@ if (process.env.NODE_ENV === 'development') {
         evs
     }
 }
-
-var _view = connect({ state, bus, view: View })
-render(h(_view), document.getElementById('content'))
 
