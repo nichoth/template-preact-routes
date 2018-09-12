@@ -2,13 +2,12 @@ var catchRoutes = require('@nichoth/catch-routes')
 var evs = require('../EVENTS')
 
 function Effects ({ state, view }) {
-    // set the route pieces in state
-    var { setRoute } = catchRoutes(function (parsedUrl) {
+    catchRoutes(function (parsedUrl) {
         state.route.set(parsedUrl)
     })
 
     var effects = {
-        onClick: function (ev) {
+        foo: function (ev) {
             ev.preventDefault()
             console.log('click', ev)
             var example = ev.target.elements.example
@@ -17,7 +16,7 @@ function Effects ({ state, view }) {
     }
 
     // listen for DOM events
-    view.on(evs.hello.world, effects.onClick)
+    view.on(evs.hello.world, effects.foo)
 
     return effects
 }
